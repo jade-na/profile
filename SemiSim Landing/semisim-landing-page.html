@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SemiSim - 반도체 제조장비 시뮬레이션 솔루션</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #1a252f;
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .pain-points {
+            background-color: var(--light);
+            padding: 4rem 0;
+        }
+        
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .pain-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .pain-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .solution {
+            padding: 4rem 0;
+        }
+        
+        .solution-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .solution-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+        }
+        
+        .solution-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .solution-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .testimonials {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 0;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .cta {
+            text-align: center;
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-cta {
+            background-color: white;
+            color: var(--primary);
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+        }
+        
+        .btn-cta:hover {
+            background-color: #f8f9fa;
+            color: var(--secondary);
+        }
+        
+        .feedback-form {
+            background-color: white;
+            padding: 4rem 0;
+        }
+        
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checkbox-item input {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+        
+        .submit-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .solution-wrapper {
+                flex-direction: column;
+            }
+            
+            .solution-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>SemiSim</h1>
+            <p>반도체 장비 시뮬레이션의 혁신</p>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>실제 장비 없이 반도체 제조장비 운영 프로그램을 완벽하게 검증하세요</h1>
+            <p>프로이/카티아 3D 모델링을 활용한 혁신적인 시뮬레이션 솔루션으로 개발 비용과 시간을 획기적으로 절감합니다.</p>
+            <div>
+                <a href="#feedback-form" class="btn">베타 테스터 신청</a>
+                <a href="#pain-points" class="btn btn-secondary">자세히 알아보기</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>SemiSim의 핵심 기능</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>CAD 데이터 직접 활용</h3>
+                    <p>프로이/카티아 등에서 설계한 3D 모델링 파일을 별도 변환 작업 없이 바로 활용할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h3>표준화된 개발 SDK</h3>
+                    <p>CTC, PMC, TMC 등 표준 인터페이스를 제공하여 개발 시간을 단축하고 코드 품질을 높입니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👁️</div>
+                    <h3>RuntimeViewer</h3>
+                    <p>실제 장비 없이도 장비 동작 시퀀스를 3D로 시각화하여 직관적으로 검증할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>빠른 검증 및 디버깅</h3>
+                    <p>실시간 시뮬레이션을 통해 개발 초기 단계에서 문제점을 빠르게 발견하고 수정할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>상세 동작 분석</h3>
+                    <p>모션, 센서, 액추에이터 등 모든 동작 요소를 상세히 분석하고 최적화할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>데이터 시각화</h3>
+                    <p>공정 파라미터와 성능 데이터를 실시간으로 시각화하여 효율적인 모니터링이 가능합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pain-points" id="pain-points">
+        <div class="container">
+            <div class="section-title">
+                <h2>이런 어려움을 겪고 계신가요?</h2>
+            </div>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <h3>비용과 시간 낭비</h3>
+                    <p>실제 장비를 제작한 후에야 소프트웨어 문제점을 발견하여 막대한 비용과 시간이 낭비됩니다.</p>
+                </div>
+                <div class="pain-card">
+                    <h3>반복되는 모델링 작업</h3>
+                    <p>CAD에서 설계한 데이터를 시뮬레이션용으로 다시 모델링해야 하는 중복 작업이 발생합니다.</p>
+                </div>
+                <div class="pain-card">
+                    <h3>비효율적인 개발 프로세스</h3>
+                    <p>표준화된 개발 환경 없이 매번 처음부터 코드를 작성해야 하는 비효율이 발생합니다.</p>
+                </div>
+                <div class="pain-card">
+                    <h3>직관적인 검증 부재</h3>
+                    <p>코드 수준에서만 검증이 이루어져 실제 동작을 시각적으로 확인하기 어렵습니다.</p>
+                </div>
+                <div class="pain-card">
+                    <h3>교육 및 훈련의 어려움</h3>
+                    <p>고가의 장비로 인해 신규 인력 교육 및 훈련이 제한적으로 이루어집니다.</p>
+                </div>
+                <div class="pain-card">
+                    <h3>유지보수 복잡성</h3>
+                    <p>장비 업그레이드나 변경 시 소프트웨어 수정이 복잡하고 위험합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution">
+        <div class="container">
+            <div class="section-title">
+                <h2>SemiSim 솔루션</h2>
+            </div>
+            <div class="solution-wrapper">
+                <div class="solution-content">
+                    <h3>3D 모델링 기반 시뮬레이션의 혁신</h3>
+                    <p>SemiSim은 기존 CAD 설계 데이터(프로이/카티아)를 직접 활용하여 반도체 제조장비의 동작을 완벽하게 시뮬레이션합니다. 전용 SDK를 통해 개발된 장비 운영 프로그램은 RuntimeViewer와 연동되어 실제 장비 없이도 모든 동작 시퀀스를 3D로 시각화합니다.</p>
+                    <p>이를 통해 개발 초기 단계에서 문제점을 발견하고 수정할 수 있어 개발 비용과 시간을 획기적으로 절감할 수 있습니다. 또한 엔지니어 교육 및 운영자 훈련에도 활용할 수 있어 인력 양성에도 큰 도움이 됩니다.</p>
+                    <h3>주요 이점:</h3>
+                    <ul>
+                        <li>개발 비용 최대 40% 절감</li>
+                        <li>개발 기간 30% 단축</li>
+                        <li>소프트웨어 품질 향상으로 오류 70% 감소</li>
+                        <li>엔지니어 교육 및 훈련 비용 절감</li>
+                        <li>설계 변경 시 빠른 검증 가능</li>
+                    </ul>
+                </div>
+                <div class="solution-image">
+                    <img src="images/SemiSim_600x400.png" alt="SemiSim 시뮬레이션 화면">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>고객 사례</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"SemiSim을 도입한 후 장비 개발 기간이 30% 단축되었고, 초기 테스트 과정에서 발생하던 오류의 대부분을 사전에 제거할 수 있었습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">K</div>
+                        <div>
+                            <strong>김OO 책임</strong><br>
+                            반도체 장비 제조사 A사
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"장비 없이도 신규 엔지니어 교육이 가능해져 인력 양성 비용이 크게 절감되었습니다. 특히 위험한 상황에 대한 시뮬레이션이 가능해 안전 교육에도 효과적입니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">L</div>
+                        <div>
+                            <strong>이OO 팀장</strong><br>
+                            반도체 제조사 B사
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"표준화된 SDK 덕분에 개발자들의 코드 품질이 크게 향상되었고, 유지보수가 훨씬 쉬워졌습니다. 개발 팀의 생산성이 2배 이상 증가했습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">P</div>
+                        <div>
+                            <strong>박OO CTO</strong><br>
+                            소프트웨어 개발사 C사
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>지금 SemiSim을 경험해보세요</h2>
+            <p>베타 테스터에게는 특별 할인 혜택과 함께 전담 기술 지원을 제공합니다. 귀사의 실제 프로젝트에 SemiSim을 적용하고 그 효과를 직접 확인해보세요.</p>
+            <a href="#feedback-form" class="btn btn-cta">베타 테스터 신청하기</a>
+        </div>
+    </section>
+
+    <section class="feedback-form" id="feedback-form">
+        <div class="container">
+            <div class="section-title">
+                <h2>귀하의 의견을 들려주세요</h2>
+                <p>베타 테스터 신청 및 제품에 대한 의견을 남겨주시면 빠르게 연락드리겠습니다.</p>
+            </div>
+            <form id="customer-feedback">
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">회사명</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+                <div class="form-group">
+                    <label for="position">직책</label>
+                    <input type="text" id="position" name="position">
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">연락처</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label>귀사에서 겪고 있는 가장 큰 어려움은 무엇인가요? (해당되는 항목 모두 선택)</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain1" name="pain_points" value="high_cost">
+                            <label for="pain1">장비 개발 비용 과다</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain2" name="pain_points" value="long_dev_time">
+                            <label for="pain2">개발 기간 지연</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain3" name="pain_points" value="duplicate_modeling">
+                            <label for="pain3">중복 모델링 작업</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain4" name="pain_points" value="lack_visualization">
+                            <label for="pain4">직관적 검증 부재</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain5" name="pain_points" value="training_difficulty">
+                            <label for="pain5">교육/훈련 어려움</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain6" name="pain_points" value="maintenance_complexity">
+                            <label for="pain6">유지보수 복잡성</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="interest">SemiSim에 관심 있는 부분은 무엇인가요?</label>
+                    <select id="interest" name="interest" required>
+                        <option value="">선택해주세요</option>
+                        <option value="cost_reduction">개발 비용 절감</option>
+                        <option value="time_reduction">개발 시간 단축</option>
+                        <option value="quality_improvement">소프트웨어 품질 향상</option>
+                        <option value="training">교육 및 훈련</option>
+                        <option value="visualization">시각화 및 검증</option>
+                        <option value="all">전체 솔루션</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget">예상 도입 예산 범위</label>
+                    <select id="budget" name="budget">
+                        <option value="">선택해주세요</option>
+                        <option value="below_50k">5천만원 미만</option>
+                        <option value="50k_100k">5천만원 ~ 1억원</option>
+                        <option value="100k_300k">1억원 ~ 3억원</option>
+                        <option value="above_300k">3억원 이상</option>
+                        <option value="not_decided">미정</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="timeline">도입 예상 시기</label>
+                    <select id="timeline" name="timeline">
+                        <option value="">선택해주세요</option>
+                        <option value="immediate">즉시 (1-3개월 내)</option>
+                        <option value="short">단기 (3-6개월 내)</option>
+                        <option value="medium">중기 (6-12개월 내)</option>
+                        <option value="long">장기 (1년 이상)</option>
+                        <option value="not_decided">미정</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">추가 의견 또는 질문</label>
+                    <textarea id="message" name="message" placeholder="SemiSim에 대한 의견이나 질문을 자유롭게 작성해주세요."></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">제출하기</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">회사 소개</a>
+                <a href="#">제품 정보</a>
+                <a href="#">연락처</a>
+                <a href="#">개인정보처리방침</a>
+            </div>
+            <p>&copy; 2025 SemiSim. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('customer-feedback').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('감사합니다! 귀하의 의견이 성공적으로 제출되었습니다. 빠른 시일 내에 연락드리겠습니다.');
+            // 실제 구현 시에는 여기에 데이터 수집 및 저장 로직 추가
+        });
+    </script>
+</body>
+</html>
