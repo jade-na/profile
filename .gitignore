@@ -1,0 +1,15 @@
+# 환경 변수
+.env
+
+# 데이터베이스
+*.db
+
+# 의존성 디렉토리
+node_modules/
+
+# 로그 파일
+*.log
+
+# 운영체제 파일
+.DS_Store
+Thumbs.db 

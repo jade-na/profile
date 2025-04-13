@@ -950,22 +950,41 @@
         document.getElementById('demo-request-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // 간단한 유효성 검사
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const company = document.getElementById('company').value;
-            
-            if (!name || !email || !company) {
-                alert('이름, 회사명, 이메일은 필수 입력 항목입니다.');
-                return;
-            }
-            
-            // 여기서 실제로는 서버로 데이터를 전송해야 함
-            // 예시: 폼 데이터를 서버에 전송하는 코드
-            
-            // 임시로 성공 메시지 표시
-            alert('데모 요청이 성공적으로 제출되었습니다! 빠른 시일 내에 연락드리겠습니다.');
-            this.reset();
+            // 폼 데이터 수집
+            const formData = {
+                name: document.getElementById('name').value,
+                company: document.getElementById('company').value,
+                position: document.getElementById('position').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                pain_points: Array.from(document.querySelectorAll('input[name="pain_points"]:checked')).map(cb => cb.value),
+                interest: document.getElementById('interest').value,
+                timeline: document.getElementById('timeline').value,
+                message: document.getElementById('message').value,
+                form_type: 'HB-SECS Pro'
+            };
+
+            // 서버로 데이터 전송
+            fetch('http://localhost:3000/submit-feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('문의가 성공적으로 접수되었습니다! 빠른 시일 내에 연락드리겠습니다.');
+                    this.reset();
+                } else {
+                    alert('문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            });
         });
     </script>
 </body>

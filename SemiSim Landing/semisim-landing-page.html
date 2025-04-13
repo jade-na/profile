@@ -671,8 +671,42 @@
     <script>
         document.getElementById('customer-feedback').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('감사합니다! 귀하의 의견이 성공적으로 제출되었습니다. 빠른 시일 내에 연락드리겠습니다.');
-            // 실제 구현 시에는 여기에 데이터 수집 및 저장 로직 추가
+            
+            // 폼 데이터 수집
+            const formData = {
+                name: document.getElementById('name').value,
+                company: document.getElementById('company').value,
+                position: document.getElementById('position').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                pain_points: Array.from(document.querySelectorAll('input[name="pain_points"]:checked')).map(cb => cb.value),
+                interest: document.getElementById('interest').value,
+                timeline: document.getElementById('timeline').value,
+                message: document.getElementById('message').value,
+                form_type: 'SemiSim'
+            };
+
+            // 서버로 데이터 전송
+            fetch('http://localhost:3000/submit-feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('문의가 성공적으로 접수되었습니다! 빠른 시일 내에 연락드리겠습니다.');
+                    this.reset();
+                } else {
+                    alert('문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            });
         });
     </script>
 </body>
