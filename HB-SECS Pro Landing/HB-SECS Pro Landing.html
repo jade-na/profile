@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HB-SECS Pro - 반도체 표준통신 소프트웨어 개발 툴</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #1a252f;
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .pain-points {
+            background-color: var(--light);
+            padding: 4rem 0;
+        }
+        
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .pain-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .pain-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .solution {
+            padding: 4rem 0;
+        }
+        
+        .solution-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .solution-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+        }
+        
+        .solution-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .solution-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .testimonials {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 0;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .cta {
+            text-align: center;
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-cta {
+            background-color: white;
+            color: var(--primary);
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+        }
+        
+        .btn-cta:hover {
+            background-color: #f8f9fa;
+            color: var(--secondary);
+        }
+        
+        .feedback-form {
+            background-color: white;
+            padding: 4rem 0;
+        }
+        
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checkbox-item input {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+        
+        .submit-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .pricing {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .pricing-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .pricing-card.popular {
+            border-top: 4px solid var(--accent);
+        }
+        
+        .popular-tag {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .pricing-title {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-price {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+        
+        .pricing-description {
+            color: #777;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+            color: #555;
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roi-calculator {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .calculator-wrapper {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .calculator-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .calculator-results {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .result-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .result-label {
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .result-value {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .solution-wrapper {
+                flex-direction: column;
+            }
+            
+            .solution-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>HB-SECS Pro</h1>
+            <p>스마트팩토리 구축의 기반이 되는 반도체표준통신 소프트웨어</p>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>반도체 및 디스플레이 제조 공정에서 개발 시간을 30% 단축하세요</h1>
+            <p>AI 기반 코드 자동 생성과 웹 프로토콜 지원으로 SECS/GEM 통신 구현을 혁신적으로 간소화합니다.</p>
+            <div>
+                <a href="#contact-form" class="btn">무료 데모 요청</a>
+                <a href="#pain-points" class="btn btn-secondary">자세히 알아보기</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>HB-SECS Pro의 핵심 기능</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>AI 기반 코드 자동 생성</h3>
+                    <p>프로그래밍 작업 시간을 대폭 단축하고, 오류 발생 가능성을 최소화하는 AI 기반 자동 코드 생성 기능을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>웹 프로토콜 변환 지원</h3>
+                    <p>SECS 프로토콜과 XML, JSON 등 대중적인 웹 프로토콜 간 간편한 변환으로 시스템 확장성과 호환성을 강화합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>SECS 프로토콜 함수 세트</h3>
+                    <p>SECS 표준을 준수하는 프로토콜을 제공되는 함수로 쉽게 구현할 수 있어 개발 복잡성을 크게 줄일 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>다양한 통신 표준 지원</h3>
+                    <p>SECS-I(RS-232C), SECS-II, HSMS(TCP/IP) 등 다양한 산업 표준 프로토콜을 완벽하게 지원합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>유연한 라이선스 정책</h3>
+                    <p>영구 라이선스와 단기 라이선스 옵션을 모두 제공하여 기업 규모와 상황에 맞게 선택할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>간편한 시스템 통합</h3>
+                    <p>기존 MES 시스템과 쉽게 통합할 수 있는 인터페이스로 스마트팩토리 환경을 빠르게 구축할 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pain-points" id="pain-points">
+        <div class="container">
+            <div class="section-title">
+                <h2>이런 문제로 고민하고 계신가요?</h2>
+            </div>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <h3>프로토콜의 복잡성</h3>
+                    <p>SECS 프로토콜을 적용하기 위해서는 표준 기술 문서를 충분히 이해하고 고수준의 프로그래밍 구현 능력이 요구되어 개발 시간과 비용이 증가합니다.</p>
+                </div>
+                <div class="pain-card">
+                    <h3>개발 비효율성</h3>
+                    <p>SECS의 통신 프로토콜을 구현하기 위해 많은 프로그래밍 작업이 필요하고, 이 과정에서 오류가 발생할 확률이 높아 생산성이 저하됩니다.</p>
+                </div>
+                <div class="pain-card">
+                    <h3>낮은 호환성</h3>
+                    <p>MES 시스템은 다양한 서비스와 연결되어야 하지만, SECS 프로토콜 사용 시 강한 규약으로 인해 호환성이 떨어져 장비마다 별도 개발이 필요합니다.</p>
+                </div>
+                <div class="pain-card">
+                    <h3>웹 서비스 연동 어려움</h3>
+                    <p>현대적인 웹 기반 서비스와 기존 SECS 프로토콜을 연동하는 것이 복잡하여 시스템 확장에 제약이 발생합니다.</p>
+                </div>
+                <div class="pain-card">
+                    <h3>인력 의존성</h3>
+                    <p>SECS/GEM 프로토콜에 능숙한 전문 인력이 제한적이어서 개발 진행이 지연되거나 품질이 저하될 위험이 있습니다.</p>
+                </div>
+                <div class="pain-card">
+                    <h3>비용 부담</h3>
+                    <p>기존의 SECS 개발 툴은 고가의 영구 라이선스만 제공하여 초기 도입 비용 부담이 크고 유연한 사용이 어렵습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution">
+        <div class="container">
+            <div class="section-title">
+                <h2>HB-SECS Pro 솔루션</h2>
+            </div>
+            <div class="solution-wrapper">
+                <div class="solution-content">
+                    <h3>AI 기반 코드 자동 생성과 함수 세트로 개발 혁신</h3>
+                    <p>HB-SECS Pro는 반도체 및 디스플레이 제조 장비와 MES 간의 통신을 간소화하기 위해 특별히 설계된 소프트웨어 개발 툴입니다. AI 기반 코드 자동 생성 기능은 복잡한 SECS 프로토콜을 손쉽게 구현할 수 있게 하며, 웹 프로토콜 변환 지원으로 현대적인 시스템과의 통합이 용이합니다.</p>
+                    <p>또한 다양한 함수 세트를 제공하여 개발자가 반복적인 코드 작성 대신 핵심 비즈니스 로직에 집중할 수 있게 하여 개발 시간을 획기적으로 단축합니다. 유연한 라이선스 정책으로 초기 비용 부담 없이 필요에 맞게 선택할 수 있습니다.</p>
+                    <h3>주요 이점:</h3>
+                    <ul>
+                        <li>개발 시간 30% 단축</li>
+                        <li>인건비 665만원 이상 절감</li>
+                        <li>코드 오류 발생률 75% 감소</li>
+                        <li>시스템 호환성 및 확장성 강화</li>
+                        <li>초기 도입 비용 부담 완화</li>
+                    </ul>
+                </div>
+                <div class="solution-image">
+                    <img src="images/SECS-Pro Product-001.png" alt="HB-SECS Pro 솔루션">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="roi-calculator">
+        <div class="container">
+            <div class="section-title">
+                <h2>ROI 계산기</h2>
+                <p>HB-SECS Pro의 투자 수익률을 직접 확인해보세요</p>
+            </div>
+            <div class="calculator-wrapper">
+                <h3 style="margin-bottom: 1.5rem; color: var(--secondary);">개발 비용 절감 계산기</h3>
+                <div class="calculator-inputs">
+                    <div class="form-group">
+                        <label for="dev-time">현재 개발 시간 (일)</label>
+                        <input type="number" id="dev-time" value="68" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="dev-cost">개발자 일 비용 (원)</label>
+                        <input type="number" id="dev-cost" value="350000" min="1">
+                    </div>
+                </div>
+                <button id="calculate-btn" class="btn" style="width: 100%;">절감 효과 계산하기</button>
+                <div id="calculator-results" class="calculator-results">
+                    <div class="result-item">
+                        <span class="result-label">개발 시간 절감:</span>
+                        <span class="result-value" id="time-saved">19일</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">인건비 절감 효과:</span>
+                        <span class="result-value" id="cost-saved">6,650,000원</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">투자 회수 기간:</span>
+                        <span class="result-value" id="payback-period">2.0개월</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>고객 사례</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"HB-SECS Pro를 도입한 후 장비와 MES 시스템 간 통신을 자동화하는 데 걸리는 시간이 30% 단축되었습니다. 특히 AI 기반 코드 자동 생성 기능은 개발자의 생산성을 크게 향상시켰습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div>
+                            <strong>㈜실트렉스</strong><br>
+                            CMP 장비 개발팀
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"XML/JSON 지원 기능 덕분에 웹 기술과의 통합이 용이해져 시스템 확장성이 크게 향상되었습니다. 특히 프로토콜 변환 함수를 통해 기존 SECS 데이터와 웹 서비스 간의 원활한 데이터 교환이 가능해졌습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">B</div>
+                        <div>
+                            <strong>반도체 자동화 기업</strong><br>
+                            스마트팩토리 구축팀
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"다양한 제조 장비의 통신 프로토콜을 표준화하기 위해 HB-SECS Pro를 도입했습니다. 자동 코드 생성 기능으로 각 장비별 인터페이스 개발 시간이 크게 단축되었고, 함수 세트를 활용하여 복잡한 통신 로직을 간소화할 수 있었습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">D</div>
+                        <div>
+                            <strong>디스플레이 제조사</strong><br>
+                            장비 표준화팀
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>유연한 라이선스 옵션</h2>
+                <p>귀사의 상황에 맞는 최적의 가격 모델을 선택하세요</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="pricing-title">Trial</h3>
+                    <div class="pricing-price">0원</div>
+                    <p class="pricing-description">무료 체험 버전</p>
+                    <ul class="pricing-features">
+                        <li>14일 무료 평가판</li>
+                        <li>주요 기능 제한적 사용</li>
+                        <li>기본 기술 지원</li>
+                        <li>온라인 문서 접근</li>
+                    </ul>
+                    <a href="#contact-form" class="btn">무료 체험하기</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-tag">신규 상품</div>
+                    <h3 class="pricing-title">Subscribe</h3>
+                    <div class="pricing-price">198,000원</div>
+                    <p class="pricing-description">1 Copy / 1년 단기 라이선스</p>
+                    <ul class="pricing-features">
+                        <li>모든 기능 사용</li>
+                        <li>1년간 업데이트</li>
+                        <li>이메일 및 채팅 기술지원</li>
+                        <li>온라인 문서 및 튜토리얼</li>
+                        <li>세션 2개 동시 사용 가능</li>
+                    </ul>
+                    <a href="#contact-form" class="btn">구독하기</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="pricing-title">Lifetime Standard</h3>
+                    <div class="pricing-price">1,100,000원</div>
+                    <p class="pricing-description">1 Copy / 영구 라이선스</p>
+                    <ul class="pricing-features">
+                        <li>모든 기능 영구 사용</li>
+                        <li>평생 업데이트</li>
+                        <li>우선 기술지원</li>
+                        <li>온라인/오프라인 교육(1회)</li>
+                        <li>세션 2개 동시 사용 가능</li>
+                    </ul>
+                    <a href="#contact-form" class="btn">구매하기</a>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); grid-gap: 2rem; margin-top: 2rem;">
+                <div class="pricing-card">
+                    <h3 class="pricing-title">Lifetime Start-Up</h3>
+                    <div class="pricing-price">800,000원</div>
+                    <p class="pricing-description">1 Copy / 스타트업 전용</p>
+                    <ul class="pricing-features">
+                        <li>모든 기능 영구 사용</li>
+                        <li>2년간 무료 업데이트</li>
+                        <li>이메일 기술지원</li>
+                        <li>온라인 문서 및 튜토리얼</li>
+                        <li>세션 2개 동시 사용 가능</li>
+                    </ul>
+                    <a href="#contact-form" class="btn">스타트업 구매</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="pricing-title">대량 구매 할인</h3>
+                    <div class="pricing-price">900,000원~</div>
+                    <p class="pricing-description">50~100 Copy 이상 구매 시</p>
+                    <ul class="pricing-features">
+                        <li>50 Copy: 900,000원/Copy</li>
+                        <li>100 Copy: 800,000원/Copy</li>
+                        <li>맞춤형 기술지원</li>
+                        <li>현장 방문 지원</li>
+                        <li>커스터마이징 옵션</li>
+                    </ul>
+                    <a href="#contact-form" class="btn">견적 요청하기</a>
+                </div>
+                <div class="pricing-card">
+                    <h3 class="pricing-title">SI 프로젝트</h3>
+                    <div class="pricing-price">4,000만원~</div>
+                    <p class="pricing-description">맞춤형 통합 프로젝트</p>
+                    <ul class="pricing-features">
+                        <li>요구사항 분석 및 설계</li>
+                        <li>맞춤형 개발 및 구현</li>
+                        <li>전담 프로젝트 매니저</li>
+                        <li>유지보수 및 운영 지원</li>
+                        <li>교육 및 기술 이전</li>
+                    </ul>
+                    <a href="#contact-form" class="btn">상담 요청하기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>지금 HB-SECS Pro로 개발 효율성을 높이세요</h2>
+            <p>개발 시간 30% 단축, 오류 발생 75% 감소, 시스템 호환성 강화까지 - HB-SECS Pro로 스마트팩토리 구축의 핵심을 확보하세요.</p>
+            <a href="#contact-form" class="btn btn-cta">무료 데모 요청하기</a>
+        </div>
+    </section>
+
+    <section class="feedback-form" id="contact-form">
+        <div class="container">
+            <div class="section-title">
+                <h2>무료 데모 요청</h2>
+                <p>HB-SECS Pro에 관심이 있으시면 아래 양식을 작성해주세요. 빠른 시일 내에 연락드리겠습니다.</p>
+            </div>
+            <form id="demo-request-form">
+                <div class="form-group">
+                    <label for="name">이름 *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="company">회사명 *</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+                <div class="form-group">
+                    <label for="position">직책</label>
+                    <input type="text" id="position" name="position">
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일 *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">연락처</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label>현재 겪고 계신 어려움은 무엇인가요? (해당되는 항목 모두 선택)</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain1" name="pain_points" value="protocol_complexity">
+                            <label for="pain1">프로토콜 복잡성</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain2" name="pain_points" value="development_inefficiency">
+                            <label for="pain2">개발 비효율성</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain3" name="pain_points" value="low_compatibility">
+                            <label for="pain3">낮은 호환성</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain4" name="pain_points" value="web_integration_difficulty">
+                            <label for="pain4">웹 서비스 연동 어려움</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain5" name="pain_points" value="workforce_dependency">
+                            <label for="pain5">인력 의존성</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="pain6" name="pain_points" value="cost_burden">
+                            <label for="pain6">비용 부담</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="interest">관심 제품</label>
+                    <select id="interest" name="interest">
+                        <option value="trial">무료 Trial 버전</option>
+                        <option value="subscribe">Subscribe (1년 라이선스)</option>
+                        <option value="standard">Lifetime Standard</option>
+                        <option value="startup">Lifetime Start-Up</option>
+                        <option value="bulk">대량 구매</option>
+                        <option value="si">SI 프로젝트</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="timeline">도입 예상 시기</label>
+                    <select id="timeline" name="timeline">
+                        <option value="">선택해주세요</option>
+                        <option value="immediate">즉시 (1-3개월 내)</option>
+                        <option value="short">단기 (3-6개월 내)</option>
+                        <option value="medium">중기 (6-12개월 내)</option>
+                        <option value="long">장기 (1년 이상)</option>
+                        <option value="not_decided">미정</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">추가 문의사항</label>
+                    <textarea id="message" name="message" placeholder="HB-SECS Pro에 대한 궁금한 점이나 요구사항을 자유롭게 작성해주세요."></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">데모 요청하기</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">회사 소개</a>
+                <a href="#">제품 정보</a>
+                <a href="#">연락처</a>
+                <a href="#">개인정보처리방침</a>
+            </div>
+            <p>&copy; 2025 HEADBYTE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ROI 계산기 함수
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            // 입력값 가져오기
+            const devTime = parseInt(document.getElementById('dev-time').value) || 68;
+            const devCost = parseInt(document.getElementById('dev-cost').value) || 350000;
+            
+            // 계산
+            const timeSaved = Math.round(devTime * 0.3); // 30% 시간 절감
+            const costSaved = timeSaved * devCost;
+            const paybackPeriod = (1100000 / costSaved) * 12; // 월 단위 회수 기간
+            
+            // 결과 표시
+            document.getElementById('time-saved').textContent = timeSaved + '일';
+            document.getElementById('cost-saved').textContent = costSaved.toLocaleString() + '원';
+            document.getElementById('payback-period').textContent = paybackPeriod.toFixed(1) + '개월';
+            
+            // 결과 섹션 표시
+            document.getElementById('calculator-results').style.display = 'block';
+        });
+        
+        // 페이지 로드 시 ROI 계산 자동 실행
+        window.addEventListener('load', function() {
+            document.getElementById('calculate-btn').click();
+        });
+        
+        // 폼 제출 처리
+        document.getElementById('demo-request-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 간단한 유효성 검사
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            
+            if (!name || !email || !company) {
+                alert('이름, 회사명, 이메일은 필수 입력 항목입니다.');
+                return;
+            }
+            
+            // 여기서 실제로는 서버로 데이터를 전송해야 함
+            // 예시: 폼 데이터를 서버에 전송하는 코드
+            
+            // 임시로 성공 메시지 표시
+            alert('데모 요청이 성공적으로 제출되었습니다! 빠른 시일 내에 연락드리겠습니다.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
