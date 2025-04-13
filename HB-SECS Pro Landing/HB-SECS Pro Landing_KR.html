@@ -1,0 +1,104 @@
+    <style>
+        /* ... existing code ... */
+    </style>
+    <script type="module">
+        // Firebase App (the core Firebase SDK) is always required and must be listed first
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+    </script>
+</head> 
+
+<section>
+    <div class="form-group">
+        <button type="submit" class="submit-btn" id="submit-button">데모 요청하기</button>
+        <div id="submit-status" style="display: none; margin-top: 1rem; text-align: center;">
+            <div id="loading" style="display: none;">
+                처리 중입니다...
+            </div>
+            <div id="success-message" style="display: none; color: var(--success);">
+                데모 요청이 성공적으로 접수되었습니다. 곧 연락드리겠습니다.
+            </div>
+            <div id="error-message" style="display: none; color: var(--accent);">
+                처리 중 문제가 발생했습니다. 다시 시도해주세요.
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-links">
+            <a href="#">회사 소개</a>
+            <a href="#">제품 정보</a>
+            <a href="#">연락처</a>
+            <a href="#">개인정보처리방침</a>
+        </div>
+        <p>&copy; 2025 HEADBYTE. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script type="module">
+    import { saveFeedback } from '../js/firebase-config.js';
+
+    document.getElementById('demo-request-form').addEventListener('submit', async function(e) {
+        e.preventDefault(); // 기본 제출을 중단하고 직접 처리합니다.
+        
+        // UI 상태 업데이트
+        const submitButton = document.getElementById('submit-button');
+        const submitStatus = document.getElementById('submit-status');
+        const loading = document.getElementById('loading');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+        
+        submitButton.disabled = true;
+        submitStatus.style.display = 'block';
+        loading.style.display = 'block';
+        successMessage.style.display = 'none';
+        errorMessage.style.display = 'none';
+        
+        // 폼 데이터 수집
+        const formData = {
+            name: document.getElementById('name').value,
+            company: document.getElementById('company').value,
+            position: document.getElementById('position').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            pain_points: Array.from(document.querySelectorAll('input[name="pain_points[]"]:checked')).map(cb => cb.value),
+            interest: document.getElementById('interest').value,
+            timeline: document.getElementById('timeline').value,
+            message: document.getElementById('message').value,
+            form_type: 'HB-SECS Pro Demo Request'
+        };
+
+        try {
+            // Netlify Forms 데이터 전송
+            const netlifyResponse = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    'form-name': 'hbsecs-demo-request',
+                    ...formData
+                }).toString()
+            });
+
+            // Firebase에 데이터 저장
+            const firebaseResult = await saveFeedback(formData);
+            
+            if (firebaseResult) {
+                // 성공 처리
+                loading.style.display = 'none';
+                successMessage.style.display = 'block';
+                // 폼 초기화
+                e.target.reset();
+            } else {
+                throw new Error('Firebase 저장 실패');
+            }
+        } catch (error) {
+            console.error('제출 중 오류:', error);
+            loading.style.display = 'none';
+            errorMessage.style.display = 'block';
+        } finally {
+            submitButton.disabled = false;
+        }
+    });
+</script> 

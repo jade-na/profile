@@ -523,6 +523,11 @@
             }
         }
     </style>
+    <script type="module">
+        // Firebase App (the core Firebase SDK) is always required and must be listed first
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+    </script>
 </head>
 <body>
     <header>
@@ -825,7 +830,8 @@
                 <h2>무료 데모 요청</h2>
                 <p>HB-SECS Pro에 관심이 있으시면 아래 양식을 작성해주세요. 빠른 시일 내에 연락드리겠습니다.</p>
             </div>
-            <form id="demo-request-form">
+            <form id="demo-request-form" name="hbsecs-demo-request" method="POST" data-netlify="true">
+                <input type="hidden" name="form-name" value="hbsecs-demo-request">
                 <div class="form-group">
                     <label for="name">이름 *</label>
                     <input type="text" id="name" name="name" required>
@@ -850,27 +856,27 @@
                     <label>현재 겪고 계신 어려움은 무엇인가요? (해당되는 항목 모두 선택)</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain1" name="pain_points" value="protocol_complexity">
+                            <input type="checkbox" id="pain1" name="pain_points[]" value="protocol_complexity">
                             <label for="pain1">프로토콜 복잡성</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain2" name="pain_points" value="development_inefficiency">
+                            <input type="checkbox" id="pain2" name="pain_points[]" value="development_inefficiency">
                             <label for="pain2">개발 비효율성</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain3" name="pain_points" value="low_compatibility">
+                            <input type="checkbox" id="pain3" name="pain_points[]" value="low_compatibility">
                             <label for="pain3">낮은 호환성</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain4" name="pain_points" value="web_integration_difficulty">
+                            <input type="checkbox" id="pain4" name="pain_points[]" value="web_integration_difficulty">
                             <label for="pain4">웹 서비스 연동 어려움</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain5" name="pain_points" value="workforce_dependency">
+                            <input type="checkbox" id="pain5" name="pain_points[]" value="workforce_dependency">
                             <label for="pain5">인력 의존성</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain6" name="pain_points" value="cost_burden">
+                            <input type="checkbox" id="pain6" name="pain_points[]" value="cost_burden">
                             <label for="pain6">비용 부담</label>
                         </div>
                     </div>
@@ -920,35 +926,11 @@
         </div>
     </footer>
 
-    <script>
-        // ROI 계산기 함수
-        document.getElementById('calculate-btn').addEventListener('click', function() {
-            // 입력값 가져오기
-            const devTime = parseInt(document.getElementById('dev-time').value) || 68;
-            const devCost = parseInt(document.getElementById('dev-cost').value) || 350000;
-            
-            // 계산
-            const timeSaved = Math.round(devTime * 0.3); // 30% 시간 절감
-            const costSaved = timeSaved * devCost;
-            const paybackPeriod = (1100000 / costSaved) * 12; // 월 단위 회수 기간
-            
-            // 결과 표시
-            document.getElementById('time-saved').textContent = timeSaved + '일';
-            document.getElementById('cost-saved').textContent = costSaved.toLocaleString() + '원';
-            document.getElementById('payback-period').textContent = paybackPeriod.toFixed(1) + '개월';
-            
-            // 결과 섹션 표시
-            document.getElementById('calculator-results').style.display = 'block';
-        });
-        
-        // 페이지 로드 시 ROI 계산 자동 실행
-        window.addEventListener('load', function() {
-            document.getElementById('calculate-btn').click();
-        });
-        
-        // 폼 제출 처리
-        document.getElementById('demo-request-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+    <script type="module">
+        import { saveFeedback } from '../js/firebase-config.js';
+
+        document.getElementById('demo-request-form').addEventListener('submit', async function(e) {
+            // Netlify Forms가 기본 제출을 처리하므로 preventDefault()는 호출하지 않습니다.
             
             // 폼 데이터 수집
             const formData = {
@@ -957,34 +939,21 @@
                 position: document.getElementById('position').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                pain_points: Array.from(document.querySelectorAll('input[name="pain_points"]:checked')).map(cb => cb.value),
+                pain_points: Array.from(document.querySelectorAll('input[name="pain_points[]"]:checked')).map(cb => cb.value),
                 interest: document.getElementById('interest').value,
                 timeline: document.getElementById('timeline').value,
                 message: document.getElementById('message').value,
                 form_type: 'HB-SECS Pro'
             };
 
-            // 서버로 데이터 전송
-            fetch('http://localhost:3000/submit-feedback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('문의가 성공적으로 접수되었습니다! 빠른 시일 내에 연락드리겠습니다.');
-                    this.reset();
-                } else {
-                    alert('문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-            });
+            try {
+                // Firebase에 데이터 저장
+                await saveFeedback(formData);
+                console.log('데이터가 Firebase에 저장되었습니다.');
+            } catch (error) {
+                console.error('Firebase 저장 중 오류:', error);
+                // Firebase 저장 실패해도 Netlify Forms는 계속 작동
+            }
         });
     </script>
 </body>

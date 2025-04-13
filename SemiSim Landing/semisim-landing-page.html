@@ -561,7 +561,8 @@
                 <h2>귀하의 의견을 들려주세요</h2>
                 <p>베타 테스터 신청 및 제품에 대한 의견을 남겨주시면 빠르게 연락드리겠습니다.</p>
             </div>
-            <form id="customer-feedback">
+            <form id="customer-feedback" name="semisim-feedback" method="POST" data-netlify="true">
+                <input type="hidden" name="form-name" value="semisim-feedback">
                 <div class="form-group">
                     <label for="name">이름</label>
                     <input type="text" id="name" name="name" required>
@@ -586,27 +587,27 @@
                     <label>귀사에서 겪고 있는 가장 큰 어려움은 무엇인가요? (해당되는 항목 모두 선택)</label>
                     <div class="checkbox-group">
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain1" name="pain_points" value="high_cost">
+                            <input type="checkbox" id="pain1" name="pain_points[]" value="high_cost">
                             <label for="pain1">장비 개발 비용 과다</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain2" name="pain_points" value="long_dev_time">
+                            <input type="checkbox" id="pain2" name="pain_points[]" value="long_dev_time">
                             <label for="pain2">개발 기간 지연</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain3" name="pain_points" value="duplicate_modeling">
+                            <input type="checkbox" id="pain3" name="pain_points[]" value="duplicate_modeling">
                             <label for="pain3">중복 모델링 작업</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain4" name="pain_points" value="lack_visualization">
+                            <input type="checkbox" id="pain4" name="pain_points[]" value="lack_visualization">
                             <label for="pain4">직관적 검증 부재</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain5" name="pain_points" value="training_difficulty">
+                            <input type="checkbox" id="pain5" name="pain_points[]" value="training_difficulty">
                             <label for="pain5">교육/훈련 어려움</label>
                         </div>
                         <div class="checkbox-item">
-                            <input type="checkbox" id="pain6" name="pain_points" value="maintenance_complexity">
+                            <input type="checkbox" id="pain6" name="pain_points[]" value="maintenance_complexity">
                             <label for="pain6">유지보수 복잡성</label>
                         </div>
                     </div>
@@ -668,9 +669,11 @@
         </div>
     </footer>
 
-    <script>
-        document.getElementById('customer-feedback').addEventListener('submit', function(e) {
-            e.preventDefault();
+    <script type="module">
+        import { saveFeedback } from '../js/firebase-config.js';
+
+        document.getElementById('customer-feedback').addEventListener('submit', async function(e) {
+            // Netlify Forms가 기본 제출을 처리하므로 preventDefault()는 호출하지 않습니다.
             
             // 폼 데이터 수집
             const formData = {
@@ -679,34 +682,22 @@
                 position: document.getElementById('position').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                pain_points: Array.from(document.querySelectorAll('input[name="pain_points"]:checked')).map(cb => cb.value),
+                pain_points: Array.from(document.querySelectorAll('input[name="pain_points[]"]:checked')).map(cb => cb.value),
                 interest: document.getElementById('interest').value,
+                budget: document.getElementById('budget').value,
                 timeline: document.getElementById('timeline').value,
                 message: document.getElementById('message').value,
                 form_type: 'SemiSim'
             };
 
-            // 서버로 데이터 전송
-            fetch('http://localhost:3000/submit-feedback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('문의가 성공적으로 접수되었습니다! 빠른 시일 내에 연락드리겠습니다.');
-                    this.reset();
-                } else {
-                    alert('문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('문의 접수 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-            });
+            try {
+                // Firebase에 데이터 저장
+                await saveFeedback(formData);
+                console.log('데이터가 Firebase에 저장되었습니다.');
+            } catch (error) {
+                console.error('Firebase 저장 중 오류:', error);
+                // Firebase 저장 실패해도 Netlify Forms는 계속 작동
+            }
         });
     </script>
 </body>
