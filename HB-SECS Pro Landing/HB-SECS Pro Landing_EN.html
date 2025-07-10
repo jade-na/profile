@@ -1,7 +1,158 @@
 <title>HB-SECS Pro - Semiconductor Equipment Communication Solution</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
-  // ... existing code ...
+  :root {
+    --bs-primary: #2b2f72;
+    --bs-primary-rgb: 43, 47, 114;
+    --primary: #2b2f72;
+    --secondary: #2b2f72;
+    --accent: #2b2f72;
+    --success: #2ecc71;
+  }
+  
+  .btn-primary {
+    background-color: #2b2f72;
+    border-color: #2b2f72;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #1f2354;
+    border-color: #1f2354;
+    color: white;
+  }
+  
+  .btn-primary.active {
+    background-color: #2b2f72;
+    border-color: #2b2f72;
+    color: white;
+  }
+  
+  .btn-outline-primary {
+    color: #2b2f72;
+    border-color: #2b2f72;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #2b2f72;
+    border-color: #2b2f72;
+    color: white;
+  }
+  
+  .submit-btn {
+    background-color: #2b2f72;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .submit-btn:hover {
+    background-color: #1f2354;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .hero {
+    background: linear-gradient(135deg, #2b2f72, #1f2354);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .feature-item {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border-left: 4px solid #2b2f72;
+  }
+  
+  .feature-item h3 {
+    color: #2b2f72;
+    margin-bottom: 1rem;
+  }
+  
+  .demo-request {
+    background-color: white;
+    padding: 4rem 0;
+    border-radius: 8px;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #2b2f72;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .checkbox-group input {
+    width: auto;
+    margin-right: 0.5rem;
+  }
+  
+  footer {
+    background-color: #2b2f72;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+  }
+  
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-links a {
+    color: white;
+    margin: 0 1rem;
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
 </style>
 </head>
 <body>
