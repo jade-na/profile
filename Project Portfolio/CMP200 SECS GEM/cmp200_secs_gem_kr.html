@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLAREX-200 CMP SECS/GEM 프로젝트 포트폴리오</title>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Malgun Gothic', '맑은 고딕', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .language-switch {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .language-switch a {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        
+        .language-switch a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .language-switch .active {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #0d62c9;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #1a252f;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .project-details {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+        
+        .detail-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .detail-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+        }
+        
+        .detail-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .detail-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .protocol-section {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .protocol-wrapper {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .protocol-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .protocol-table th,
+        .protocol-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .protocol-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .protocol-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .state-models {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+
+        .model-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .model-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .model-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -13px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -13px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .cta {
+            text-align: center;
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-cta {
+            background-color: white;
+            color: var(--primary);
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+        }
+        
+        .btn-cta:hover {
+            background-color: #f8f9fa;
+            color: var(--secondary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .detail-wrapper {
+                flex-direction: column;
+            }
+            
+            .detail-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .timeline-item:nth-child(odd)::after {
+                right: auto;
+            }
+
+            .language-switch {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="language-switch">
+            <a href="cmp200_secs_gem_en.html">EN</a>
+            <a href="#" class="active">KR</a>
+        </div>
+        <div class="container">
+            <h1>POLAREX-200 CMP SECS/GEM</h1>
+            <p>반도체 장비 통신 인터페이스 솔루션</p>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>반도체 제조를 위한 고급 SECS/GEM 통신 솔루션</h1>
+            <p>POLAREX-200 CMP SECS/GEM 프로젝트는 화학적 기계적 연마(CMP) 공정을 위한 완전 호환 반도체 장비 통신 인터페이스를 제공하여 호스트 제조 시스템과의 원활한 통합을 가능하게 합니다.</p>
+            <div>
+                <a href="#project-details" class="btn">프로젝트 상세</a>
+                <a href="#technical-specs" class="btn btn-secondary">기술 사양</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>주요 기능</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>GEM 표준 준수</h3>
+                    <p>SEMI E30 Generic Model for Communications and Control of SEMI Equipment (GEM) 표준을 완벽히 구현하여 원활한 공장 통합을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>상태 모델</h3>
+                    <p>통신, 제어, 공정 작업, 웨이퍼 공정 및 위치 상태 모델의 종합적인 구현으로 완벽한 장비 상태 추적을 가능하게 합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>데이터 수집</h3>
+                    <p>실시간 공정 모니터링을 위한 강력한 변수 데이터 수집, 트레이스 데이터 수집 및 상태 데이터 수집 기능을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚠️</div>
+                    <h3>알람 관리</h3>
+                    <p>맞춤형 알람 활성화/비활성화 기능을 갖춘 종합적인 알람 보고 및 관리 시스템을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <h3>원격 제어</h3>
+                    <p>자동화된 제조 환경을 위한 안전한 호스트 주도 장비 제어 기능을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>공정 관리</h3>
+                    <p>포맷된 공정 프로그램 처리 기능을 갖춘 완전한 공정 레시피 관리 기능을 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-details" id="project-details">
+        <div class="container">
+            <div class="section-title">
+                <h2>프로젝트 개요</h2>
+            </div>
+            <div class="detail-wrapper">
+                <div class="detail-content">
+                    <h3>반도체 제조를 위한 SECS/GEM 통신</h3>
+                    <p>POLAREX-200 CMP SECS/GEM 프로젝트는 SEMI E5 및 E30 표준을 구현하여 화학적 기계적 연마(CMP) 장비가 공장 호스트 시스템과 효과적으로 통신할 수 있게 합니다.</p>
+                    <p>이 구현은 첨단 반도체 제조 시설에서 장비 제어, 모니터링, 데이터 수집 및 공정 관리를 위한 강력한 프레임워크를 제공합니다.</p>
+                    <h3>주요 기술:</h3>
+                    <ul>
+                        <li>SEMI E5 SECS-II 메시지 프로토콜</li>
+                        <li>SEMI E30 GEM 표준</li>
+                        <li>SEMI E37 고속 SECS 메시지 서비스 (HSMS)</li>
+                        <li>SEMI E37.1 HSMS 단일 세션 모드</li>
+                        <li>장비 상태 추적을 위한 종합적인 상태 모델</li>
+                        <li>이벤트 기반 데이터 수집 시스템</li>
+                    </ul>
+                </div>
+                <div class="detail-image">
+                    <img src="/api/placeholder/500/350" alt="POLAREX-200 CMP 장비">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="protocol-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>SECS 메시지 구현</h2>
+            </div>
+            <div class="protocol-wrapper">
+                <p>POLAREX-200 CMP SECS/GEM 인터페이스는 SEMI E5 표준에 따라 포괄적인 SECS-II 메시지 세트를 구현합니다. 이러한 메시지는 장비 상태 보고, 제어 기능, 알람 관리 및 공정 데이터 교환을 제공합니다.</p>
+                
+                <table class="protocol-table">
+                    <thead>
+                        <tr>
+                            <th>카테고리</th>
+                            <th>메시지</th>
+                            <th>설명</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>장비 상태</td>
+                            <td>S1F1/F2, S1F3/F4, S1F11/F12</td>
+                            <td>기본 장비 상태 모니터링 및 온라인 확인</td>
+                        </tr>
+                        <tr>
+                            <td>통신 제어</td>
+                            <td>S1F13/F14, S1F15/F16, S1F17/F18</td>
+                            <td>장비와 호스트 간의 통신 설정 및 제어</td>
+                        </tr>
+                        <tr>
+                            <td>장비 제어</td>
+                            <td>S2F41/F42, S2F13/F14, S2F15/F16</td>
+                            <td>원격 장비 명령 전송 및 장비 상수 관리</td>
+                        </tr>
+                        <tr>
+                            <td>데이터 수집</td>
+                            <td>S2F33/F34, S2F35/F36, S2F37/F38</td>
+                            <td>이벤트 기반 데이터 수집 구성 및 제어</td>
+                        </tr>
+                        <tr>
+                            <td>알람 관리</td>
+                            <td>S5F1/F2, S5F3/F4, S5F5/F6</td>
+                            <td>장비 알람 보고 및 관리</td>
+                        </tr>
+                        <tr>
+                            <td>공정 프로그램</td>
+                            <td>S7F23/F24, S7F25/F26, S7F19/F20</td>
+                            <td>호스트와 장비 간의 공정 레시피 관리 및 전송</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="state-models" id="technical-specs">
+        <div class="container">
+            <div class="section-title">
+                <h2>상태 모델 구현</h2>
+            </div>
+            <p class="text-center">POLAREX-200 CMP SECS/GEM 인터페이스는 장비 상태와 동작에 대한 완벽한 가시성을 제공하는 5가지 종합적인 상태 모델을 구현합니다.</p>
+            
+            <div class="model-wrapper">
+                <div class="model-card">
+                    <h3>통신 상태 모델</h3>
+                    <p>장비와 호스트 간의 통신 상태를 추적합니다:</p>
+                    <ul>
+                        <li>DISABLED: 통신 없음</li>
+                        <li>ENABLED: 통신 존재</li>
+                        <li>NOT COMMUNICATING: 연결은 설정되었으나 활성 통신 없음</li>
+                        <li>COMMUNICATING: 완전한 통신 활성화</li>
+                    </ul>
+                </div>
+                
+                <div class="model-card">
+                    <h3>제어 상태 모델</h3>
+                    <p>호스트에서 사용할 수 있는 제어 수준을 정의합니다:</p>
+                    <ul>
+                        <li>OFFLINE: 로컬 작업자만 장비 운영 가능</li>
+                        <li>ONLINE/LOCAL: 호스트는 데이터를 얻을 수 있으나 제어는 불가</li>
+                        <li>ONLINE/REMOTE: 호스트가 "전면 패널" 제어 권한 보유</li>
+                    </ul>
+                </div>
+                
+                <div class="model-card">
+                    <h3>공정 작업 상태 모델</h3>
+                    <p>처리 작업의 생명주기를 추적합니다:</p>
+                    <ul>
+                        <li>QUEUED: 실행 대기 중인 작업</li>
+                        <li>ACTIVE: 처리 중인, 활성 작업</li>
+                        <li>EXECUTING: 진행 중인 공정 실행</li>
+                        <li>PROCESS COMPLETE: 처리 완료됨</li>
+                    </ul>
+                </div>
+                
+                <div class="model-card">
+                    <h3>웨이퍼 공정 상태 모델</h3>
+                    <p>개별 웨이퍼의 상태를 추적합니다:</p>
+                    <ul>
+                        <li>NEEDS PROCESSING: 처리 대기 중인 웨이퍼</li>
+                        <li>IN PROCESS: 처리 중인 웨이퍼</li>
+                        <li>PROCESSING COMPLETE: 웨이퍼 처리 완료</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="section-title">
+            <h2>구현 일정</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>요구사항 분석</h3>
+                    <p>2023년 1분기</p>
+                    <p>핵심 기능을 정의하기 위한 반도체 및 디스플레이 제조업체의 요구사항 수집 및 분석.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>프로토콜 개발</h3>
+                    <p>2023년 2분기</p>
+                    <p>상태 모델 및 메시지 처리를 포함한 SECS-II 프로토콜 및 GEM 기능 구현.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>인터페이스 개발</h3>
+                    <p>2023년 3분기</p>
+                    <p>통신 시스템을 위한 사용자 인터페이스 및 구성 도구 개발.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>통합 및 테스트</h3>
+                    <p>2023년 4분기</p>
+                    <p>CMP 장비 시스템과의 통합 및 호스트 시뮬레이터를 통한 종합적인 테스트.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>검증</h3>
+                    <p>2024년 1분기</p>
+                    <p>성능 최적화를 포함한 반도체 제조 환경에서의 실제 테스트.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>출시</h3>
+                    <p>2024년 2분기</p>
+                    <p>완전한 문서와 함께 POLAREX-200 CMP SECS/GEM 솔루션 공식 출시.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>반도체 제조 공정을 향상시키세요</h2>
+            <p>POLAREX-200 CMP SECS/GEM 솔루션을 구현하여 CMP 장비와 공장 자동화 시스템의 원활한 통합을 달성하고, 생산성과 품질을 향상시키세요.</p>
+            <a href="#" class="btn btn-cta">데모 요청하기</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">회사 소개</a>
+                <a href="#">제품 정보</a>
+                <a href="#">기술 지원</a>
+                <a href="#">연락처</a>
+            </div>
+            <p>&copy; 2025 HEADBYTE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 앵커 링크를 위한 부드러운 스크롤링
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

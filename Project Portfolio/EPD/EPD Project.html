@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SILTREX EPD Software - 프로젝트 포트폴리오</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #1a252f;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .project-details {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+        
+        .detail-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .detail-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+        }
+        
+        .detail-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .detail-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .screenshots {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .screenshot-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+
+        .screenshot-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .screenshot-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .screenshot-caption {
+            padding: 1rem;
+            background-color: white;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .technical-specs {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+
+        .specs-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .spec-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1.5rem;
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .spec-title {
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .testimonials {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4rem 0;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -13px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -13px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .cta {
+            text-align: center;
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-cta {
+            background-color: white;
+            color: var(--primary);
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+        }
+        
+        .btn-cta:hover {
+            background-color: #f8f9fa;
+            color: var(--secondary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .detail-wrapper {
+                flex-direction: column;
+            }
+            
+            .detail-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .timeline-item:nth-child(odd)::after {
+                right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>EPD Software</h1>
+            <p>반도체 및 디스플레이 제조 공정을 위한 End Point Detection 소프트웨어</p>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>정밀한 반도체 공정 제어를 위한 최적의 솔루션</h1>
+            <p>SILTREX EPD Software는 반도체 및 디스플레이 제조 공정에서 필수적인 엔드포인트 감지 기능을 제공하여 공정 수율을 극대화하고 품질을 향상시키는 첨단 소프트웨어입니다.</p>
+            <div>
+                <a href="#project-details" class="btn">프로젝트 상세 보기</a>
+                <a href="#technical-specs" class="btn btn-secondary">기술 사양</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>주요 기능</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>실시간 데이터 모니터링</h3>
+                    <p>Platen 1 ~ 3까지의 EPD 진행 상태와 신호의 변화를 실시간으로 모니터링하여 공정 상태를 즉시 파악할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>고급 알고리즘 제어</h3>
+                    <p>Window Logic, Notch Filter, Bandpass Filter 등 다양한 디지털 노이즈 필터를 제공하여 정확한 엔드포인트 검출이 가능합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>REPROCESS 기능</h3>
+                    <p>이미 진행했던 EPD 데이터 로그 파일을 이용하여 프로세스를 재연하고 분석할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>유연한 설정 옵션</h3>
+                    <p>Initial Dead Time, Derivative Time, Overpolish 등 다양한 파라미터 조정을 통해 공정에 최적화된 설정이 가능합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>호스트 통신 지원</h3>
+                    <p>CMP 프로그램과 통신을 통해 연결하여 자동화된 공정 제어 및 데이터 교환이 가능합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>데이터 저장 및 관리</h3>
+                    <p>공정 데이터를 자동으로 저장하고 디스크 공간을 효율적으로 관리하는 기능을 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-details" id="project-details">
+        <div class="container">
+            <div class="section-title">
+                <h2>프로젝트 개요</h2>
+            </div>
+            <div class="detail-wrapper">
+                <div class="detail-content">
+                    <h3>CMP 공정을 위한 EPD 소프트웨어</h3>
+                    <p>SILTREX EPD Software는 반도체 및 디스플레이 제조 장비의 CMP(Chemical Mechanical Polishing) 공정에서 필수적인 엔드포인트 감지를 위해 개발된 첨단 소프트웨어입니다.</p>
+                    <p>Wafer의 연마 종료를 위한 정확한 엔드포인트를 검출하기 위해 신호의 기울기 변화를 실시간으로 분석하고, 다양한 디지털 필터를 적용하여 노이즈를 제거함으로써 제조 공정의 정밀도와 품질을 크게 향상시킵니다.</p>
+                    <h3>주요 기술:</h3>
+                    <ul>
+                        <li>Window Logic 기반 엔드포인트 검출</li>
+                        <li>다양한 디지털 노이즈 필터 (Notch, Bandpass, Lowpass, Highpass, Median)</li>
+                        <li>CMP 프로그램과의 통신 인터페이스</li>
+                        <li>데이터 로깅 및 REPROCESS 기능</li>
+                        <li>사용자 친화적 GUI 인터페이스</li>
+                    </ul>
+                </div>
+                <div class="detail-image">
+                    <img src="/api/placeholder/500/350" alt="SILTREX EPD Software 메인 화면">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshots">
+        <div class="container">
+            <div class="section-title">
+                <h2>소프트웨어 스크린샷</h2>
+            </div>
+            <div class="screenshot-wrapper">
+                <div class="screenshot-item">
+                    <img src="/api/placeholder/400/300" alt="메인 인터페이스">
+                    <div class="screenshot-caption">메인 인터페이스 - Auto Process 화면</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="/api/placeholder/400/300" alt="알고리즘 에디터">
+                    <div class="screenshot-caption">알고리즘 에디터 화면</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="/api/placeholder/400/300" alt="호스트 통신">
+                    <div class="screenshot-caption">호스트 통신 다이얼로그</div>
+                </div>
+                <div class="screenshot-item">
+                    <img src="/api/placeholder/400/300" alt="필터 설정">
+                    <div class="screenshot-caption">디지털 노이즈 필터 설정</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="technical-specs" id="technical-specs">
+        <div class="container">
+            <div class="section-title">
+                <h2>기술 사양</h2>
+            </div>
+            <div class="specs-container">
+                <div class="spec-item">
+                    <div class="spec-title">소프트웨어 버전</div>
+                    <p>SILTREX EPD Software Ver 1.0.0 (2024.04.29 기준)</p>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-title">지원 운영체제</div>
+                    <p>Windows 10/11 (64-bit)</p>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-title">알고리즘 기능</div>
+                    <p>Window Logic, Notch Filter, Bandpass Filter, Lowpass Filter, Highpass Filter, Median Filter 지원</p>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-title">Window Logic 설정</div>
+                    <p>Window 크기: 1~9999초 (X축), -99.99~99.99% (Y축)</p>
+                    <p>Window 타입: Window out +, Window out -, Window in</p>
+                    <p>Window 수: 0~99개 설정 가능</p>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-title">통신 인터페이스</div>
+                    <p>CMP 프로그램과 XML 포맷 기반 데이터 통신</p>
+                    <p>이더넷 또는 DIO 인터페이스 방식 지원</p>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-title">데이터 저장</div>
+                    <p>자동 로그 파일 생성 및 저장</p>
+                    <p>디스크 공간 자동 관리 기능</p>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-title">라이선스</div>
+                    <p>USB Dongle Key 기반 라이선스 관리</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>고객 후기</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p>"SILTREX EPD Software를 도입한 후 CMP 공정의 정확도가 크게 향상되었습니다. 특히 Window Logic과 디지털 필터 기능은 복잡한 신호에서도 정확한 엔드포인트를 검출해 내는 능력이 탁월합니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div>
+                            <strong>헤드바이트</strong><br>
+                            CMP 장비 개발팀
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"다양한 필터링 옵션과 직관적인 GUI 덕분에 엔지니어들이 쉽게 활용할 수 있었습니다. REPROCESS 기능을 통해 이전 공정을 분석하고 최적화하는 데 큰 도움이 되었습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">D</div>
+                        <div>
+                            <strong>디스플레이 제조사</strong><br>
+                            공정 개발팀
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"호스트 통신 기능이 안정적으로 작동하여 자동화된 공정 관리가 가능해졌습니다. 이로 인해 작업자 개입이 최소화되어 인적 오류가 크게 감소했습니다."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">B</div>
+                        <div>
+                            <strong>반도체 자동화 기업</strong><br>
+                            공정 엔지니어링팀
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="section-title">
+            <h2>개발 타임라인</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>요구사항 분석 및 기획</h3>
+                    <p>2023년 1분기</p>
+                    <p>반도체 및 디스플레이 제조사의 요구사항을 수집하고 분석하여 EPD 소프트웨어의 핵심 기능을 정의했습니다.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>알고리즘 개발</h3>
+                    <p>2023년 2분기</p>
+                    <p>Window Logic 및 다양한 디지털 필터링 알고리즘을 개발하고 테스트하여 최적의 엔드포인트 검출 방법을 구현했습니다.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>GUI 개발</h3>
+                    <p>2023년 3분기</p>
+                    <p>사용자 친화적인 그래픽 인터페이스를 설계하고 개발하여 직관적인 소프트웨어 조작이 가능하도록 했습니다.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>통신 모듈 개발</h3>
+                    <p>2023년 4분기</p>
+                    <p>CMP 프로그램과의 통신 프로토콜을 구현하고 데이터 교환 기능을 개발했습니다.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>테스트 및 최적화</h3>
+                    <p>2024년 1분기</p>
+                    <p>실제 반도체 제조 환경에서 테스트를 진행하고 성능을 최적화했습니다.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>정식 출시</h3>
+                    <p>2024년 2분기</p>
+                    <p>SILTREX EPD Software Ver 1.0.0을 공식 출시하고 매뉴얼 작성 및 배포를 완료했습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>세계적 수준의 EPD 소프트웨어로 공정 효율을 극대화하세요</h2>
+            <p>SILTREX EPD Software는 정밀한 엔드포인트 검출로 반도체 및 디스플레이 제조 공정의 품질을 한 단계 높여드립니다.</p>
+            <a href="#" class="btn btn-cta">데모 요청하기</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">회사 소개</a>
+                <a href="#">제품 정보</a>
+                <a href="#">지원</a>
+                <a href="#">연락처</a>
+            </div>
+            <p>&copy; 2025 HEADBYTE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 간단한 스크롤 애니메이션
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 기본적으로 모든 접근을 거부
+    match /{document=**} {
+      allow read, write: false;
+    }
+    
+    // feedback 컬렉션 규칙
+    match /feedback/{docId} {
+      // 읽기: 인증된 관리자만 가능
+      allow read: if isAdmin();
+      
+      // 쓰기: 인증되지 않은 사용자도 새 문서 생성 가능 (데모 요청)
+      allow create: if true;
+      
+      // 수정: 인증된 관리자만 가능하며, 특정 필드만 수정 가능
+      allow update: if isAdmin() &&
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['status', 'updated_at']);
+      
+      // 삭제: 인증된 관리자만 가능
+      allow delete: if isAdmin();
+    }
+    
+    // 관리자 확인 함수
+    function isAdmin() {
+      return request.auth != null && 
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+  }
+} 

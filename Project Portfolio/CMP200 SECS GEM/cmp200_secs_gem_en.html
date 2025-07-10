@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLAREX-200 CMP SECS/GEM Project Portfolio</title>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .language-switch {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .language-switch a {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+        
+        .language-switch a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .language-switch .active {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #0d62c9;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #1a252f;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .project-details {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+        
+        .detail-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .detail-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+        }
+        
+        .detail-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .detail-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .protocol-section {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .protocol-wrapper {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .protocol-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .protocol-table th,
+        .protocol-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .protocol-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .protocol-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .state-models {
+            padding: 4rem 0;
+            background-color: var(--light);
+        }
+
+        .model-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .model-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .model-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -13px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -13px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .cta {
+            text-align: center;
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-cta {
+            background-color: white;
+            color: var(--primary);
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+        }
+        
+        .btn-cta:hover {
+            background-color: #f8f9fa;
+            color: var(--secondary);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .detail-wrapper {
+                flex-direction: column;
+            }
+            
+            .detail-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 21px;
+            }
+            
+            .timeline-item:nth-child(odd)::after {
+                right: auto;
+            }
+
+            .language-switch {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="language-switch">
+            <a href="#" class="active">EN</a>
+            <a href="cmp200_secs_gem_kr.html">KR</a>
+        </div>
+        <div class="container">
+            <h1>POLAREX-200 CMP SECS/GEM</h1>
+            <p>Semiconductor Equipment Communications Interface Solution</p>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Advanced SECS/GEM Communication for Semiconductor Manufacturing</h1>
+            <p>The POLAREX-200 CMP SECS/GEM project provides a fully compliant semiconductor equipment communication interface for Chemical Mechanical Polishing (CMP) processes, enabling seamless integration with host manufacturing systems.</p>
+            <div>
+                <a href="#project-details" class="btn">Project Details</a>
+                <a href="#technical-specs" class="btn btn-secondary">Technical Specifications</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Key Features</h2>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>GEM Compliant</h3>
+                    <p>Fully implements SEMI E30 Generic Model for Communications and Control of SEMI Equipment (GEM) standard for seamless factory integration.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>State Models</h3>
+                    <p>Comprehensive implementation of Communications, Control, Process Job, Wafer Process, and Location state models for complete equipment status tracking.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Data Collection</h3>
+                    <p>Robust variable data collection, trace data collection, and status data collection capabilities for real-time process monitoring.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚠️</div>
+                    <h3>Alarm Management</h3>
+                    <p>Comprehensive alarm reporting and management system with customizable alarm enabling/disabling capabilities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <h3>Remote Control</h3>
+                    <p>Secure host-initiated equipment control capabilities for automated manufacturing environments.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Process Management</h3>
+                    <p>Complete process recipe management with formatted process program handling functionality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-details" id="project-details">
+        <div class="container">
+            <div class="section-title">
+                <h2>Project Overview</h2>
+            </div>
+            <div class="detail-wrapper">
+                <div class="detail-content">
+                    <h3>SECS/GEM Communication for Semiconductor Manufacturing</h3>
+                    <p>The POLAREX-200 CMP SECS/GEM project implements the SEMI E5 and E30 standards for semiconductor equipment communication, allowing Chemical Mechanical Polishing (CMP) equipment to communicate effectively with factory host systems.</p>
+                    <p>This implementation provides a robust framework for equipment control, monitoring, data collection, and process management in advanced semiconductor manufacturing facilities.</p>
+                    <h3>Key Technologies:</h3>
+                    <ul>
+                        <li>SEMI E5 SECS-II Message Protocol</li>
+                        <li>SEMI E30 GEM Standard</li>
+                        <li>SEMI E37 High-Speed SECS Message Services (HSMS)</li>
+                        <li>SEMI E37.1 HSMS Single-Session Mode</li>
+                        <li>Comprehensive State Models for Equipment Status Tracking</li>
+                        <li>Event-Based Data Collection System</li>
+                    </ul>
+                </div>
+                <div class="detail-image">
+                    <img src="/api/placeholder/500/350" alt="POLAREX-200 CMP Equipment">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="protocol-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>SECS Message Implementation</h2>
+            </div>
+            <div class="protocol-wrapper">
+                <p>The POLAREX-200 CMP SECS/GEM interface implements a comprehensive set of SECS-II messages according to the SEMI E5 standard. These messages provide equipment status reporting, control capabilities, alarm management, and process data exchange.</p>
+                
+                <table class="protocol-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Messages</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Equipment Status</td>
+                            <td>S1F1/F2, S1F3/F4, S1F11/F12</td>
+                            <td>Basic equipment status monitoring and online verification</td>
+                        </tr>
+                        <tr>
+                            <td>Communications Control</td>
+                            <td>S1F13/F14, S1F15/F16, S1F17/F18</td>
+                            <td>Establishing and controlling communications between equipment and host</td>
+                        </tr>
+                        <tr>
+                            <td>Equipment Control</td>
+                            <td>S2F41/F42, S2F13/F14, S2F15/F16</td>
+                            <td>Remote equipment command sending and equipment constant management</td>
+                        </tr>
+                        <tr>
+                            <td>Data Collection</td>
+                            <td>S2F33/F34, S2F35/F36, S2F37/F38</td>
+                            <td>Configuring and controlling event-based data collection</td>
+                        </tr>
+                        <tr>
+                            <td>Alarm Management</td>
+                            <td>S5F1/F2, S5F3/F4, S5F5/F6</td>
+                            <td>Equipment alarm reporting and management</td>
+                        </tr>
+                        <tr>
+                            <td>Process Programs</td>
+                            <td>S7F23/F24, S7F25/F26, S7F19/F20</td>
+                            <td>Managing and transferring process recipes between host and equipment</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="state-models" id="technical-specs">
+        <div class="container">
+            <div class="section-title">
+                <h2>State Model Implementation</h2>
+            </div>
+            <p class="text-center">The POLAREX-200 CMP SECS/GEM interface implements five comprehensive state models that provide complete visibility into equipment status and behavior.</p>
+            
+            <div class="model-wrapper">
+                <div class="model-card">
+                    <h3>Communications State Model</h3>
+                    <p>Tracks the communications status between equipment and host:</p>
+                    <ul>
+                        <li>DISABLED: No communications</li>
+                        <li>ENABLED: Communications exist</li>
+                        <li>NOT COMMUNICATING: Connection established but no active communications</li>
+                        <li>COMMUNICATING: Full communications active</li>
+                    </ul>
+                </div>
+                
+                <div class="model-card">
+                    <h3>Control State Model</h3>
+                    <p>Defines the level of control available to the host:</p>
+                    <ul>
+                        <li>OFFLINE: Equipment operation by local operator only</li>
+                        <li>ONLINE/LOCAL: Host can obtain data but not control</li>
+                        <li>ONLINE/REMOTE: Host has "front panel" control</li>
+                    </ul>
+                </div>
+                
+                <div class="model-card">
+                    <h3>Process Job State Model</h3>
+                    <p>Tracks the lifecycle of processing jobs:</p>
+                    <ul>
+                        <li>QUEUED: Job waiting for execution</li>
+                        <li>ACTIVE: Job being processed</li>
+                        <li>EXECUTING: Process execution in progress</li>
+                        <li>PROCESS COMPLETE: Processing completed</li>
+                    </ul>
+                </div>
+                
+                <div class="model-card">
+                    <h3>Wafer Process State Model</h3>
+                    <p>Tracks the status of individual wafers:</p>
+                    <ul>
+                        <li>NEEDS PROCESSING: Wafer waiting for processing</li>
+                        <li>IN PROCESS: Wafer being processed</li>
+                        <li>PROCESSING COMPLETE: Wafer processing completed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="section-title">
+            <h2>Implementation Timeline</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Requirements Analysis</h3>
+                    <p>Q1 2023</p>
+                    <p>Collection and analysis of requirements from semiconductor and display manufacturers to define core functionality.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Protocol Development</h3>
+                    <p>Q2 2023</p>
+                    <p>Implementation of SECS-II protocol and GEM functionality, including state models and message handling.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Interface Development</h3>
+                    <p>Q3 2023</p>
+                    <p>Development of user interface and configuration tools for the communication system.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Integration & Testing</h3>
+                    <p>Q4 2023</p>
+                    <p>Integration with CMP equipment systems and comprehensive testing with host simulators.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Validation</h3>
+                    <p>Q1 2024</p>
+                    <p>Real-world testing in semiconductor manufacturing environments with performance optimization.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Release</h3>
+                    <p>Q2 2024</p>
+                    <p>Official release of POLAREX-200 CMP SECS/GEM solution with complete documentation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Enhance Your Semiconductor Manufacturing Process</h2>
+            <p>Implement the POLAREX-200 CMP SECS/GEM solution to achieve seamless integration of your CMP equipment with factory automation systems, improving productivity and quality.</p>
+            <a href="#" class="btn btn-cta">Request Demonstration</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Company</a>
+                <a href="#">Products</a>
+                <a href="#">Support</a>
+                <a href="#">Contact</a>
+            </div>
+            <p>&copy; 2025 HEADBYTE. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

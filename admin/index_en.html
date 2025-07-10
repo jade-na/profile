@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HB-SECS Pro Admin - Demo Requests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .status-new { color: #0d6efd; }
+        .status-in-progress { color: #ffc107; }
+        .status-completed { color: #198754; }
+        .status-rejected { color: #dc3545; }
+        
+        .table-responsive {
+            margin-top: 2rem;
+        }
+        
+        .filters {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 0.25rem;
+        }
+        
+        .auth-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        }
+        
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading indicator -->
+    <div id="loading" class="loading hidden">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Login form -->
+    <div id="auth-container" class="auth-container">
+        <div class="text-center mb-3">
+            <img src="../images/HEADBYTE_logo_web.png" alt="HEADBYTE" style="height: 50px;">
+        </div>
+        <h2 class="text-center mb-4">Admin Login</h2>
+        <form id="login-form">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+    </div>
+
+    <!-- Main content -->
+    <div id="main-content" class="container-fluid hidden">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="../images/HEADBYTE_logo_web.png" alt="HEADBYTE" style="height: 40px;">
+                        <h1>Demo Request Management</h1>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <div class="btn-group" role="group" aria-label="Language selector">
+                            <a href="index.html" class="btn btn-outline-primary">한국어</a>
+                            <a href="index_en.html" class="btn btn-primary active">English</a>
+                        </div>
+                        <button id="logout-btn" class="btn btn-outline-danger">Logout</button>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="filters">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="status-filter" class="form-label">Status</label>
+                            <select id="status-filter" class="form-select">
+                                <option value="">All</option>
+                                <option value="new">New</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="date-filter" class="form-label">Period</label>
+                            <select id="date-filter" class="form-select">
+                                <option value="7">Last 7 days</option>
+                                <option value="30">Last 30 days</option>
+                                <option value="90">Last 90 days</option>
+                                <option value="all">All time</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="search" class="form-label">Search</label>
+                            <input type="text" id="search" class="form-control" placeholder="Search by name, company, or email">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button id="export-csv" class="btn btn-success">
+                                <i class="bi bi-download"></i> Export CSV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data table -->
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Name</th>
+                                <th>Company</th>
+                                <th>Position</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Interest</th>
+                                <th>Timeline</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requests-table-body">
+                            <!-- Dynamically generated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail modal -->
+    <div class="modal fade" id="detail-modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Demo Request Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="detail-content">
+                    <!-- Dynamically generated by JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <select id="status-update" class="form-select w-auto">
+                        <option value="new">New</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                    <button type="button" class="btn btn-primary" id="update-status-btn">Update Status</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./js/admin_en.js"></script>
+</body>
+</html> 
